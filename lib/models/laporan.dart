@@ -11,6 +11,7 @@ class Laporan {
   final DateTime tanggal;
   final String maps;
   List<Komentar>? komentar;
+  final int likes;
 
   Laporan({
     required this.uid,
@@ -24,6 +25,7 @@ class Laporan {
     required this.tanggal,
     required this.maps,
     this.komentar,
+    required this.likes,
   });
 }
 
