@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lapor_book/components/list_item.dart';
 import 'package:lapor_book/models/akun.dart';
+import 'package:lapor_book/models/komentar.dart';
 import 'package:lapor_book/models/laporan.dart';
 
 class AllLaporan extends StatefulWidget {
@@ -34,15 +35,15 @@ class _AllLaporanState extends State<AllLaporan> {
       setState(() {
         listLaporan.clear();
         for (var documents in querySnapshot.docs) {
-          List<dynamic>? komentarData = documents.data()['komentar'];
+          // List<dynamic>? komentarData = documents.data()['komentar'];
           
 
-          List<Komentar>? listKomentar = komentarData?.map((map) {
-            return Komentar(
-              nama: map['nama'],
-              isi: map['isi'],
-            );
-          }).toList();
+          // List<Komentar>? listKomentar = komentarData?.map((map) {
+          //   return Komentar(
+          //     pelapor: map['pelapor'],
+          //     isi: map['isi'],
+          //   );
+          // }).toList();
 
           listLaporan.add(
             Laporan(
@@ -51,12 +52,12 @@ class _AllLaporanState extends State<AllLaporan> {
               judul: documents.data()['judul'],
               instansi: documents.data()['instansi'],
               deskripsi: documents.data()['deskripsi'],
-              nama: documents.data()['nama'],
+              pelapor: documents.data()['pelapor'],
               status: documents.data()['status'],
-              gambar: documents.data()['gambar'],
-              tanggal: documents['tanggal'].toDate(),
-              maps: documents.data()['maps'],
-              komentar: listKomentar,
+              foto: documents.data()['foto'],
+              tgl_lapor: documents['tgl_lapor'].toDate(),
+              koordinat: documents.data()['koordinat'],
+              komentar: documents.data()['komentar'],
               likes: documents.data()['likes'],
             ),
           );

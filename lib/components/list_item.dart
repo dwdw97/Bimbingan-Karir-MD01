@@ -29,9 +29,9 @@ class _ListItemState extends State<ListItem> {
     try {
       await _firestore.collection('laporan').doc(widget.laporan.docId).delete();
 
-// menghapus gambar dari storage
-      if (widget.laporan.gambar != '') {
-        await _storage.refFromURL(widget.laporan.gambar!).delete();
+// menghapus foto dari storage
+      if (widget.laporan.foto != '') {
+        await _storage.refFromURL(widget.laporan.foto!).delete();
       }
       Navigator.popAndPushNamed(context, '/dashboard');
     } catch (e) {
@@ -81,9 +81,9 @@ class _ListItemState extends State<ListItem> {
         },
         child: Column(
           children: [
-            widget.laporan.gambar != ''
+            widget.laporan.foto != ''
                 ? Image.network(
-                    widget.laporan.gambar!,
+                    widget.laporan.foto!,
                     width: 130,
                     height: 130,
                   )

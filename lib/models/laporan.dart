@@ -1,3 +1,5 @@
+import 'package:lapor_book/models/komentar.dart';
+
 class Laporan {
   final String uid;
   final String docId;
@@ -5,12 +7,12 @@ class Laporan {
   final String judul;
   final String instansi;
   String? deskripsi;
-  String? gambar;
-  final String nama;
+  String? foto;
+  final String pelapor;
   final String status;
-  final DateTime tanggal;
-  final String maps;
-  List<Komentar>? komentar;
+  final DateTime tgl_lapor;
+  final String koordinat;
+  List<dynamic>? komentar;
   List<dynamic> likes;
 
   Laporan({
@@ -19,22 +21,12 @@ class Laporan {
     required this.judul,
     required this.instansi,
     this.deskripsi,
-    this.gambar,
-    required this.nama,
+    this.foto,
+    required this.pelapor,
     required this.status,
-    required this.tanggal,
-    required this.maps,
+    required this.tgl_lapor,
+    required this.koordinat,
     this.komentar,
     required this.likes,
-  });
-}
-
-class Komentar {
-  final String nama;
-  final String isi;
-
-  Komentar({
-    required this.nama,
-    required this.isi,
   });
 }

@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:lapor_book/components/komen_dialog.dart';
+import 'package:lapor_book/components/komentar_dialog.dart';
 import 'package:lapor_book/components/status_dialog.dart';
 import 'package:lapor_book/components/styles.dart';
 import 'package:lapor_book/models/akun.dart';
+import 'package:lapor_book/models/komentar.dart';
 import 'package:lapor_book/models/laporan.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,6 +29,8 @@ class _DetailPageState extends State<DetailPage> {
   bool _isLoading = false;
   String? status;
 
+  List<Komentar> komentar = List.empty(growable: true);
+
   Future launch(String uri) async {
     if (uri == '') return;
     if (!await launchUrl(Uri.parse(uri))) {
@@ -42,6 +45,15 @@ class _DetailPageState extends State<DetailPage> {
         return StatusDialog(
           laporan: laporan,
         );
+      },
+    );
+  }
+
+  void komentarDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return KomentarDialog();
       },
     );
   }
@@ -76,6 +88,8 @@ class _DetailPageState extends State<DetailPage> {
     Akun akun = arguments['akun'];
     isLiked = likes.contains(user?.uid);
 
+    // updateKomentar(laporan.komentar);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -101,8 +115,8 @@ class _DetailPageState extends State<DetailPage> {
                         style: headerStyle(level: 3),
                       ),
                       SizedBox(height: 15),
-                      laporan.gambar != ''
-                          ? Image.network(laporan.gambar!)
+                      laporan.foto != ''
+                          ? Image.network(laporan.foto!)
                           : Image.asset('assets/istock-default.png'),
                       SizedBox(height: 20),
                       Row(
@@ -121,16 +135,14 @@ class _DetailPageState extends State<DetailPage> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      textStatus(
-                          "Liked by: "+likes.length.toString(),
-                          Colors.white,
-                          Colors.black,
+                      textStatus("Liked by: " + likes.length.toString(),
+                          Colors.white, Colors.black,
                           defWidth: 400),
                       ListTile(
                         leading: Icon(Icons.person),
                         title: const Center(child: Text('Nama Pelapor')),
                         subtitle: Center(
-                          child: Text(laporan.nama),
+                          child: Text(laporan.pelapor),
                         ),
                         trailing: SizedBox(width: 45),
                       ),
@@ -139,11 +151,11 @@ class _DetailPageState extends State<DetailPage> {
                         title: Center(child: Text('Tanggal Laporan')),
                         subtitle: Center(
                             child: Text(DateFormat('dd MMMM yyyy')
-                                .format(laporan.tanggal))),
+                                .format(laporan.tgl_lapor))),
                         trailing: IconButton(
                           icon: Icon(Icons.location_on),
                           onPressed: () {
-                            launch(laporan.maps);
+                            launch(laporan.koordinat);
                           },
                         ),
                       ),
@@ -175,7 +187,7 @@ class _DetailPageState extends State<DetailPage> {
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(laporan.deskripsi ?? ''),
                       ),
-                      if (akun.role == 'admin')
+                      if (akun.level == 'admin')
                         Container(
                           width: 250,
                           child: ElevatedButton(
@@ -203,7 +215,8 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Container textStatus(String text, var bgcolor, var textcolor, {int defWidth = 150}) {
+  Container textStatus(String text, var bgcolor, var textcolor,
+      {int defWidth = 150}) {
     return Container(
       width: defWidth.toDouble(),
       alignment: Alignment.center,

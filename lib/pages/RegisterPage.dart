@@ -16,9 +16,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  String? nama;
+  String? fullname;
   String? email;
-  String? noHP;
+  String? handphone;
 
   final TextEditingController _password = TextEditingController();
 
@@ -39,11 +39,11 @@ class _RegisterPageState extends State<RegisterPage> {
       final docId = akunCollection.doc().id;
       await akunCollection.doc(docId).set({
         'uid': _auth.currentUser!.uid,
-        'nama': nama,
+        'fullname': fullname,
         'email': email,
-        'noHP': noHP,
+        'handphone': handphone,
         'docId': docId,
-        'role': 'user',
+        'level': 'masyarakat',
       });
 
       Navigator.pushNamedAndRemoveUntil(
@@ -94,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 'Nama',
                                 TextFormField(
                                   onChanged: (String value) => setState(() {
-                                    nama = value;
+                                    fullname = value;
                                   }),
                                   validator: notEmptyValidator,
                                   decoration: customInputDecoration("Nama Lengkap"),
@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 'No. HP',
                                 TextFormField(
                                   onChanged: (String value) => setState(() {
-                                    noHP = value;
+                                    handphone = value;
                                   }),
                                   validator: notEmptyValidator,
                                   decoration: customInputDecoration("0812 3456 7890"),

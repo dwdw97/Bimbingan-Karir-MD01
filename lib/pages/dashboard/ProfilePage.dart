@@ -31,14 +31,14 @@ class _ProfileState extends State<Profile> {
                     height: 100,
                   ),
                   Text(
-                    widget.akun.nama,
+                    widget.akun.fullname,
                     style: TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 40),
                   ),
                   Text(
-                    widget.akun.role,
+                    widget.akun.level,
                     style: TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class _ProfileState extends State<Profile> {
                       ), // Sudut border
                     ),
                     child: Text(
-                      widget.akun.noHP,
+                      widget.akun.handphone,
                       style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.bold,

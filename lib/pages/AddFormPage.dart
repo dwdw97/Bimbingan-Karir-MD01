@@ -148,12 +148,12 @@ class AddFormState extends State<AddFormPage> {
         'judul': judul,
         'instansi': instansi,
         'deskripsi': deskripsi,
-        'gambar': url,
-        'nama': akun.nama,
+        'foto': url,
+        'pelapor': akun.fullname,
         'status': 'Posted', // posted, process, done
-        'tanggal': timestamp,
-        'maps': maps,
-        'likes': 0,
+        'tgl_lapor': timestamp,
+        'koordinat': maps,
+        'likes': [],
       }).catchError((e) {
         throw e;
       });

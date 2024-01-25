@@ -2,17 +2,17 @@ class Akun {
   final String uid;
   final String docId;
 
-  final String nama;
-  final String noHP;
+  final String fullname;
+  final String handphone;
   final String email;
-  final String role;
+  final String level;
 
   Akun({
     required this.uid,
     required this.docId,
-    required this.nama,
-    required this.noHP,
+    required this.fullname,
+    required this.handphone,
     required this.email,
-    required this.role,
+    required this.level,
   });
 }

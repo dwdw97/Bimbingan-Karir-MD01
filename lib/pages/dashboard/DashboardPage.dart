@@ -6,6 +6,7 @@ import 'package:lapor_book/models/akun.dart';
 import 'package:lapor_book/pages/dashboard/AllLaporan.dart';
 import 'package:lapor_book/pages/dashboard/MyLaporan.dart';
 import 'package:lapor_book/pages/dashboard/ProfilePage.dart';
+import 'package:lapor_book/main.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -21,7 +22,6 @@ class DashboardFull extends StatefulWidget {
 
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
-
 
   @override
   State<StatefulWidget> createState() => _DashboardFull();
@@ -43,10 +43,10 @@ class _DashboardFull extends State<DashboardFull> {
   Akun akun = Akun(
     uid: '',
     docId: '',
-    nama: '',
-    noHP: '',
+    fullname: '',
+    handphone: '',
     email: '',
-    role: '',
+    level: '',
   );
 
   void getAkun() async {
@@ -66,11 +66,11 @@ class _DashboardFull extends State<DashboardFull> {
         setState(() {
           akun = Akun(
             uid: userData['uid'],
-            nama: userData['nama'],
-            noHP: userData['noHP'],
+            fullname: userData['fullname'],
+            handphone: userData['handphone'],
             email: userData['email'],
             docId: userData['docId'],
-            role: userData['role'],
+            level: userData['level'],
           );
         });
       }
@@ -92,11 +92,10 @@ class _DashboardFull extends State<DashboardFull> {
     // TODO: implement initState
     super.initState();
     getAkun();
-
   }
 
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     pages = <Widget>[
       AllLaporan(akun: akun),
       MyLaporan(akun: akun),
@@ -105,17 +104,16 @@ class _DashboardFull extends State<DashboardFull> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryColor,
-        child: Icon(Icons.add, size: 35),
-        onPressed: () {
-          Navigator.pushNamed(context, '/add', arguments: {
-            'akun': akun, 
-          });
-        },
-      ),
+          backgroundColor: primaryColor,
+          child: Icon(Icons.add, size: 35),
+          onPressed: () {
+            Navigator.pushNamed(context, '/add', arguments: {
+              'akun': akun,
+            });
+          }),
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Lapor Book', style: headerStyle(level:2)),
+        title: Text('Lapor Book', style: headerStyle(level: 2)),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
