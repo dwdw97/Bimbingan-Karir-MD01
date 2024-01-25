@@ -11,7 +11,7 @@ class Laporan {
   final DateTime tanggal;
   final String maps;
   List<Komentar>? komentar;
-  final int likes;
+  List<dynamic> likes;
 
   Laporan({
     required this.uid,

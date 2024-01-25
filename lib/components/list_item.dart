@@ -41,6 +41,8 @@ class _ListItemState extends State<ListItem> {
   // build
   @override
   Widget build(BuildContext context) {
+    List<dynamic> likes = widget.laporan.likes;
+
     return Container(
       decoration: BoxDecoration(
           border: Border.all(width: 2),
@@ -131,7 +133,8 @@ class _ListItemState extends State<ListItem> {
                             vertical: BorderSide(width: 1))),
                     alignment: Alignment.center,
                     child: Text(
-                      DateFormat('dd/MM/yyyy').format(widget.laporan.tanggal),
+                      likes.length.toString(),
+                      // DateFormat('dd/MM/yyyy').format(widget.laporan.tanggal),
                       style: headerStyle(level: 5, dark: false),
                     ),
                   ),
